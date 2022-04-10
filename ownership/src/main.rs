@@ -21,6 +21,12 @@ fn main() {
     //let reference_to_nothing = dangle();
     let reference_to_something = no_dangle();
     println!("reference_to_something is {}", reference_to_something);
+
+    let s = String::from("hello world!");
+    let word = first_word(&s);
+    println!("the first word is {}", word);
+
+    string();
 }
 
 fn clone_and_copy() {
@@ -56,4 +62,34 @@ fn change(some_string: &mut String){
 fn no_dangle() -> String {
     let s = String::from("hello");
     s
+}
+
+fn first_word(s: &str) -> &str {
+    let bytes = s.as_bytes();
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[0..i];
+        }
+    }
+
+    &s[..]
+}
+
+fn string() {
+    let my_string = String::from("hello world");
+
+    let word = first_word(&my_string[0..6]);
+    println!("word is {}", word);
+    let word = first_word(&my_string[..]);
+    println!("word is {}", word);
+    let word = first_word(&my_string);
+    println!("word is {}", word);
+
+    let my_string_literal = "hello_world";
+    let word = first_word(&my_string_literal[0..6]);
+    println!("word is {}", word);
+    let word = first_word(&my_string_literal[..]);
+    println!("word is {}", word);
+    let word = first_word(my_string_literal);
+    println!("word is {}", word);
 }
