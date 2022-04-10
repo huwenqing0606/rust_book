@@ -20,6 +20,7 @@ fn main() {
     fn_array(1);
     statements_expression();
     println!("{}", return_value(1));
+    control_flow();
 }
 
 fn fn_array(x: i32) {
@@ -55,4 +56,44 @@ fn statements_expression() {
 
 fn return_value(x: u32)->u32{
     return x+1;
+}
+
+fn control_flow(){
+    let number = 3;
+
+    if number < 5 {
+        println!("condition was true");
+    } else {
+        println!("condition was false");
+    };
+
+    let mut count = 0;
+    'counting_up: loop {
+        println!("count = {}", count);
+        let mut remaining = 10;
+        loop {
+            println!("remaining = {}", remaining);
+            if remaining == 9 {
+                break;
+            }
+            if count == 2 {
+                break 'counting_up;
+            }
+            remaining -= 1;
+        }
+        count += 1;
+    }    
+
+    let mut number = 3;
+    while number != 0 {
+        println!("{}!", number);
+        number-=1;
+    }
+    println!("LIFTOFF!");
+
+    let a = [10, 20, 30, 40, 50];
+    for element in a {
+        println!("the value is: {}", element);
+    }
+
 }
