@@ -1,4 +1,4 @@
-fn main() {
+fn main() {//from remote
     clone_and_copy();
 
     let s1 = gives_ownership();
