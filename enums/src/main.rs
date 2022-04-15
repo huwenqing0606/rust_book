@@ -9,20 +9,44 @@ enum IpAddr {
 impl IpAddr {
 	fn call(&self) -> &str {
 		match self {   
-			IpAddr::V4(string) => {println!("V4 = {}", string); "V4"}
-			IpAddr::V6(string) => {println!("V6 = {}", string); "V6"}
+			IpAddr::V4(string) => {string}
+			IpAddr::V6(string) => {string}
 		}
 	}
 }
 			
-			
+
+fn plus_one(x: Option<i32>) -> Option<i32> {
+    match x {
+        None => None,
+        Some(i) => Some(i+1),
+    }
+}
+
+fn ip_addr_print_v4(addr: IpAddr) -> bool {
+    if let IpAddr::V4(string) = addr {
+        println!("IpAddr (type V4) = {}", string);
+        true
+    }
+    else {
+        println!("IpAddr is not V4");
+        false
+    }
+}
+
+
 fn main() {
 	let home = IpAddr::V4(String::from("127.0.0.1"));
-
     let loopback = IpAddr::V6(String::from("::1"));
 
-	
-	println!("home is {}", home.call());
-	println!("loopback is {}", loopback.call());
+	println!("IpAddr: home is {}, IpAddr: loopback is {}", home.call(), loopback.call());
 
+    let five = Some(5);
+    let six = plus_one(five);
+    let none = plus_one(None);
+
+    println!("five = {:?}, six = {:?}, none = {:?}", five, six, none);
+
+    ip_addr_print_v4(home);
+    ip_addr_print_v4(loopback);
 }
