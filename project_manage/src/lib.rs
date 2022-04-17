@@ -20,6 +20,11 @@ mod back_of_house {
 		
 	}
 	
+	pub enum Appetizer {
+		Soup,
+		Salad,
+	}
+	
 	impl Breakfast{
 		pub fn summer(toast: &str) -> Breakfast {
 			Breakfast {
@@ -37,11 +42,17 @@ mod back_of_house {
 	fn cook_order() {}
 }
 
+use crate::front_of_house::hosting as front_hosting;
+
 pub fn eat_at_restaurant() {
 	// absolute path
 	crate::front_of_house::hosting::add_to_waitlist();
 	// relative path
 	front_of_house::hosting::add_to_waitlist();
+	
+	// use
+	// idiomatic way of writing
+	front_hosting::add_to_waitlist();
 	
 	// order a breakfast in the summer with Rye toast
 	let mut meal = back_of_house::Breakfast::summer("Rye");
@@ -49,7 +60,14 @@ pub fn eat_at_restaurant() {
 	meal.toast = String::from("Wheat");
 	println!("I'd lile {} toast", meal.toast);
 	//meal.seasonal_fruit = String::from("blueberries"); //cannot compile due to privacy in mean.seasonal_fruit
+	
+	let order1 = back_of_house::Appetizer::Soup;
+	let order2 = back_of_house::Appetizer::Salad;
 }
 
 fn serve_order() {}
 
+
+use rand::Rng;
+
+use std::collections::HashMap;
