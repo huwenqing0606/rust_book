@@ -1,3 +1,3 @@
-fn main() {
-    println!("Hello, world!");
-}
+// sample code on common collections
+
+fn main() {}
