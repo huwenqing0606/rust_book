@@ -131,4 +131,11 @@ fn hash_map() {
 		*count += 1;
 	}
 	println!("text '{}' word count = {:?}", text, map);
+    // The or_insert method returns a mutable reference (&mut V) 
+    //    to the value for the specified key. Here we store that 
+    //    mutable reference in the count variable, so in order 
+    //    to assign to that value, we must first dereference count 
+    //    using the asterisk (*). The mutable reference goes out of 
+    //    scope at the end of the for loop, so all of these changes 
+    //    are safe and allowed by the borrowing rules.
 }
