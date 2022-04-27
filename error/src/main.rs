@@ -16,8 +16,10 @@ fn main() {
 	let result = last_char_of_first_line("");
 	match result {
 		Some(c) => println!("result is {}", c),
-		None => println!("not found!"),
+		None => println!("result not found!"),
 	};
+	IpAddr_err();
+	make_guess();
 }
 
 
@@ -92,4 +94,40 @@ fn read_username_from_file_short_short() -> Result<String, io::Error> {
 
 fn last_char_of_first_line(text: &str) -> Option<char> {
 	text.lines().next()?.chars().next()
+}
+
+
+fn IpAddr_err() {
+	use std::net::IpAddr;
+	let home: IpAddr = "127.0.0.1".parse().unwrap();
+	println!("home IpAddr = {:?}", home);
+}
+
+
+pub struct Guess {
+	value: i32,
+}
+
+
+impl Guess {
+	
+	pub fn new(value: i32) -> Guess {
+		if value < 1 || value > 100 {
+			panic!("Guess value must be between 1 and 100, got {}", value);
+		}
+		Guess {value}
+	}
+	
+	pub fn value(&self) -> i32 {
+		self.value
+	}
+}
+
+
+fn make_guess() {
+	let guess1 = Guess::new(99);
+	println!("guessed value 1 is {}", guess1.value());
+	
+	let guess2 = Guess::new(101);
+	println!("guessed value 2 is {}", guess2.value());
 }
