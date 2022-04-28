@@ -1,4 +1,6 @@
-fn main() {//from remote
+// examples of ownership
+
+fn main() {
     clone_and_copy();
 
     let s1 = gives_ownership();
