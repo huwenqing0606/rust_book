@@ -1,10 +1,12 @@
 // example code for generics, traits and lifetimes
 
 fn main() {
-    //largest_simple();
+    largest_simple();
 	largest_duplicate();
 	use_struct();
 	use_trait();
+	lifetimes1();
+	lifetimes2();
 }
 
 
@@ -36,8 +38,8 @@ fn largest_duplicate() {
 	println!("largest number is {}", result);
 	
 	let char_list = vec!['a', 's', 'd', 'f'];
-	//let result = largest_generic(&char_list);
-	//println!("largest char is {}", result)
+	let result = largest_generic(&char_list);
+	println!("largest char is {}", result)
 	
 }
 
@@ -57,19 +59,19 @@ fn largest(list: &[i32]) -> i32 {
 }
 
 
-//fn largest_generic<T>(list: &[T]) -> T {
-//	
-//	let mut largest = list[0];
-//	
-//	for &item in list {
-//		if item > largest {
-//			largest = item;
-//		};
-//		println!("{}", item);
-//	}
-//	
-//	largest
-//}
+fn largest_generic<T: PartialOrd + Copy + std::fmt::Display>(list: &[T]) -> T {
+	
+	let mut largest = list[0];
+	
+	for &item in list {
+		if item > largest {
+			largest = item;
+		};
+		println!("{}", item);
+	}
+	
+	largest
+}
 
 
 struct Point<T,U> {
@@ -106,7 +108,7 @@ fn use_struct() {
 }
 
 
-use generics::aggregator::{Summary, Tweet}; 
+use generics::aggregator::{Summary, Tweet, NewsArticle}; 
 
 fn use_trait() {
 	let tweet = Tweet {
@@ -116,14 +118,68 @@ fn use_trait() {
 		retweet: false,
 	};
 	
+	let news_article = NewsArticle {
+		headline: String::from("Breaking"),
+		location: String::from("Rolla MO USA"),
+		author: String::from("Wenqing Hu"),
+		content: String::from("SPX lower than 4000")
+	};
+	
 	tweet.summarize();
+	
+	notify1(&tweet);
+	
+	notify2(&news_article);
+	
+	notify3(&tweet, &news_article);
+	
+	notify4(&tweet, &news_article);
 }
 
 
+pub fn notify1(item: &impl Summary) {
+	item.summarize();
+}
+
+pub fn notify2<T: Summary>(item: &T) {
+	item.summarize();
+}
+
+pub fn notify3(item1: &impl Summary, item2: &impl Summary) {
+	item1.summarize();
+	item2.summarize();
+}
+
+pub fn notify4<T,U>(item1: &T, item2: &U) 
+	where 	T: Summary, 
+			U: Summary, {
+	item1.summarize();
+	item2.summarize();
+}
 
 
+fn lifetimes1<'a>() {
+	let r: &'a i32;
+	{
+		let x: &'a i32 = &5;
+		r = &x;
+	}
+	println!("r={}", r);
+}
 
 
+fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+	println!("longest");
+	let z = "Wenqing";
+	&z
+}
+
+
+fn lifetimes2() {
+	let x = String::from("Hello");
+	let y = String::from("world");
+	longest(&x, &y);
+}
 
 
 
