@@ -7,6 +7,8 @@ fn main() {
 	use_trait();
 	lifetimes1();
 	lifetimes2();
+    lifetimes3();
+    traits_and_lifetime();
 }
 
 
@@ -169,23 +171,77 @@ fn lifetimes1<'a>() {
 
 
 fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
-	println!("longest");
-	let z = "Wenqing";
-	&z
+	if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
 }
 
 
 fn lifetimes2() {
-	let x = String::from("Hello");
+	let x = String::from("Hello!");
 	let y = String::from("world");
-	longest(&x, &y);
+	let result = longest(&x, &y);
+    println!("The longest string is {}", result);
 }
 
 
+struct ImportantExcerpt<'a> {
+    part: &'a str,
+}
+
+impl<'a> ImportantExcerpt<'a> {
+    
+    fn level(&self) -> i32 {
+        3
+    }
+
+    fn announce_and_return_part(&self, announcement: &str) -> &str {
+        println!("Attention please {}", announcement);
+        self.part
+    }
+}
+
+fn lifetimes3() {
+    let novel = String::from("Call me Ishamel. Some years ago...");
+    let first_sentence = novel.split('.').next().expect("Could not find a '.'");
+    let i = ImportantExcerpt {
+        part: first_sentence,
+    };
+    println!("{:?}", i.part);
+    println!("{}", i.level());
+    let announce = i.announce_and_return_part(&String::from("Hi"));
+    println!("{}", announce);
+}
 
 
+use std::fmt::Display;
+
+fn longest_with_an_announcement<'a, T> (
+    x: &'a str,
+    y: &'a str,
+    ann: T,
+) -> &'a str
+where
+    T: Display,
+{
+    println!("Announcement: {}", ann);
+    if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
+}
 
 
+fn traits_and_lifetime(){
+	let x = String::from("Hello!");
+	let y = String::from("world");
+    let ann = String::from("annoncement");
+    let result = longest_with_an_announcement(&x, &y, ann);
+    println!("result is {}", result);
+}
 
 
 
