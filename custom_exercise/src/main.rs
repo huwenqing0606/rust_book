@@ -65,8 +65,18 @@ fn generate_workout(intensity: i32, random_number: i32)
 }
 
 
+fn closure_capture_environment() {
+    let x = 4;
+    let equal_to_x = move |z| z==x;
+    let y = 4;
+    println!("x is {:?}", x);
+    assert!(equal_to_x(y));
+}
+
+
 fn main() {
     generate_workout(100, 2);
+    closure_capture_environment();
 }
 
 
@@ -77,7 +87,7 @@ mod tests {
 	fn call_with_different_values() {
 		use crate::Cacher;
 		let mut c = Cacher::new(|a| a);
-		let v1 = c.value(1);
+		let _v1 = c.value(1);
 		let v2 = c.value(2);
 		assert_eq!(v2, 2);
 	}
