@@ -1,3 +1,6 @@
+// custom exercise example
+// use of closure as traits in struct Cacher
+
 use std::thread;
 use std::time::Duration;
 use std::collections::HashMap;
