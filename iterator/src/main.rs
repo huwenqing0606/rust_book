@@ -7,6 +7,11 @@ fn main() {
 	for val in v1_iter {
 		println!("Got {}", val);
 	}
+
+    let mut v2_iter = Counter::new().zip(Counter::new().skip(1));
+    for val in v2_iter {
+        println!("{:?}", val);
+    }
 }
 
 
@@ -23,6 +28,7 @@ fn shoes_in_my_size(shoes: Vec<Shoe>, shoe_size: i32) -> Vec<Shoe> {
 }
 
 
+#[derive(Debug)]
 struct Counter {
     count: u32,
 }
@@ -104,5 +110,13 @@ fn calling_next_directly() {
     assert_eq!(counter.next(), Some(4));
     assert_eq!(counter.next(), Some(5));
     assert_eq!(counter.next(), None);
-   
+}
+
+#[test]
+fn using_other_iterator_trait_methods() {
+    let sum: u32 = Counter::new().zip(Counter::new().skip(1))
+                                 .map(|(a,b)| a*b)
+                                 .filter(|x| x%3 == 0)
+                                 .sum();
+    assert_eq!(18, sum);
 }
