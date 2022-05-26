@@ -120,3 +120,6 @@ fn using_other_iterator_trait_methods() {
                                  .sum();
     assert_eq!(18, sum);
 }
+
+
+
