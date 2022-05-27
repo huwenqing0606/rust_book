@@ -7,10 +7,9 @@ use std::io::prelude::*;
 use minigrep::Config;
 
 fn main() {
-    let args: Vec<String> = env::args().collect();
 	let mut stderr = std::io::stderr();
 	
-	let config = Config::new(&args).unwrap_or_else(|error|
+	let config = Config::new(env::args()).unwrap_or_else(|error|
     {
         writeln!(
 			&mut stderr,
