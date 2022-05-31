@@ -12,6 +12,7 @@ pub mod kinds {
     }
 
     /// The secondary colors according to the RYB color model
+    #[derive(Debug)]
     pub enum SecondaryColor {
         Orange,
         Green,
