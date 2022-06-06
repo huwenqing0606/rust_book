@@ -1,9 +1,18 @@
+#[derive(Debug)]
 pub struct AveragedCollection {
     list: Vec<i32>,
     average: f64,
 }
 
 impl AveragedCollection {
+
+    pub fn new(list: Vec<i32>, average: f64) -> AveragedCollection {
+        AveragedCollection {
+            list: list,
+            average: average,
+        }
+    }
+
     pub fn add(&mut self, value: i32) {
         self.list.push(value);
         self.update_average();
