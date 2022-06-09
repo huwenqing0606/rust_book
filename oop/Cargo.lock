@@ -11,4 +11,9 @@ name = "oop"
 version = "0.1.0"
 dependencies = [
  "averaged_collection",
+ "rust_gui",
 ]
+
+[[package]]
+name = "rust_gui"
+version = "0.1.0"

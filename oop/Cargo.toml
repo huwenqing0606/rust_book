@@ -7,3 +7,4 @@ edition = "2021"
 
 [dependencies]
 averaged_collection = {path = "averaged_collection"}
+rust_gui = {path = "rust_gui"}
