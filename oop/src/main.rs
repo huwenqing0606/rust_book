@@ -3,6 +3,7 @@ extern crate rust_gui;
 use averaged_collection::AveragedCollection;
 use rust_gui::Draw;
 
+#[derive(Debug)]
 struct SelectBox {
     width: u32,
     height: u32,
@@ -11,6 +12,7 @@ struct SelectBox {
 
 impl Draw for SelectBox {
     fn draw(&self) {
+        println!("Draw SelectBox {:?}", &self);
         // code to draw a select box
     }
 }

@@ -1,9 +1,8 @@
-// trait objects
-
-pub trait Draw {
+pub trait Draw {  // a trait object
     fn draw(&self);
 }
 
+#[derive(Debug)]
 pub struct Button {
     pub width: u32,
     pub height: u32,
@@ -12,6 +11,7 @@ pub struct Button {
 
 impl Draw for Button {
     fn draw(&self) {
+        println!("Draw button {:?}", self);
         // code to actually draw a button
     }
 }
