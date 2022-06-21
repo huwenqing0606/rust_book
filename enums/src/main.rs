@@ -49,4 +49,12 @@ fn main() {
 
     ip_addr_print_v4(home);
     ip_addr_print_v4(loopback);
+
+    let a: Option<i32> = Some(1);
+    let b: Option<i32> = Some(1);
+    let c: Option<i32> = a.and_then(|a| b.map(|b| a + b));
+    match c {
+        None => println!("None"),
+        Some(val) => println!("c value is {}", val),
+    }
 }
