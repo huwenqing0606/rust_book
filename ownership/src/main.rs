@@ -1,6 +1,10 @@
 // examples of ownership
 
 fn main() {
+    let mut s = "hello, ".to_owned();
+    concat_literal(&mut s);
+    println!("{}", s);
+
     clone_and_copy();
 
     let s1 = gives_ownership();
@@ -29,6 +33,10 @@ fn main() {
     println!("the first word is {}", word);
 
     string();
+}
+
+fn concat_literal(s: &mut String) {
+    s.extend("world".chars());
 }
 
 fn clone_and_copy() {
