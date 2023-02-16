@@ -1,5 +1,7 @@
 // example of iterator
 
+use itertools::Itertools;
+
 fn main() {
     let v1 = vec![1,2,3];
 	let v1_iter = v1.iter();
@@ -12,6 +14,17 @@ fn main() {
     for val in v2_iter {
         println!("{:?}", val);
     }
+
+    let part_size = 3;
+    let range = 3;
+
+    for (offset, perm) in (0..part_size)
+        .map(|_| 0u64..range)
+        .multi_cartesian_product()
+        .enumerate()    
+    {
+        println!("offset: {:?}, perm: {:?}", offset, perm);
+    };
 }
 
 
