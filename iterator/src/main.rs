@@ -15,17 +15,27 @@ fn main() {
         println!("{:?}", val);
     }
 
-    let part_size = 3;
-    let range = 3;
+    chunks();
+}
 
-    for (offset, perm) in (0..part_size)
-        .map(|_| 0u64..range)
-        .multi_cartesian_product()
-        .enumerate()    
-    {
-        println!("offset: {:?}, perm: {:?}", offset, perm);
-    };
+pub(crate) const NUM_BITS_PER_BYTE: usize = 8;
+pub(crate) const NUM_BYTES_PER_WORD: usize = 8;
+pub(crate) const RATE: usize = NUM_WORDS_TO_ABSORB * NUM_BYTES_PER_WORD;
+pub(crate) const RATE_IN_BITS: usize = RATE * NUM_BITS_PER_BYTE;
+pub(crate) const NUM_WORDS_TO_ABSORB: usize = 17;
 
+fn chunks(){
+    let mut bits = vec![];
+    // Padding
+    bits.push(1);
+    while (bits.len() + 1) % RATE_IN_BITS != 0 {
+        bits.push(0);
+    }
+    bits.push(1);
+    println!("{:?} with len {:?}", bits, bits.len())
+}
+
+fn take_use(){
     let pre_s = [   [[1,1],[2,2],[3,3],[4,4],[5,5]], 
                     [[6,6],[7,7],[8,8],[9,9],[10,10]], 
                     [[11,11],[12,12],[13,13],[14,14],[15,15]], 
@@ -41,6 +51,19 @@ fn main() {
     .collect();
 
     println!("hash_words: {:?}", hash_words);
+}
+
+fn multi_catersian_prod(){
+    let part_size = 3;
+    let range = 3;
+
+    for (offset, perm) in (0..part_size)
+        .map(|_| 0u64..range)
+        .multi_cartesian_product()
+        .enumerate()    
+    {
+        println!("offset: {:?}, perm: {:?}", offset, perm);
+    };
 }
 
 
