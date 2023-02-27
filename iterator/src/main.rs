@@ -15,7 +15,16 @@ fn main() {
         println!("{:?}", val);
     }
 
-    take_use();
+    let pack = pack_with_base(&vec![0,1,0,0,0], 8);
+    println!("pack={:?}", pack);
+}
+
+/// Pack bits in the range [0,BIT_SIZE[ into a sparse keccak word with the
+/// specified bit base
+fn pack_with_base(bits: &[usize], base: usize) -> usize {
+    bits.iter()
+        .rev()
+        .fold(0, |acc, &bit| acc * base + bit)
 }
 
 pub(crate) const NUM_BITS_PER_BYTE: usize = 8;
@@ -36,27 +45,23 @@ fn chunks(){
 }
 
 fn take_use(){
-
     let pre_s = [   [1,2,3,4,5],
                     [6,7,8,9,10],
                     [11,12,13,14,15],
                     [16,17,18,19,20],
                     [21,22,23,24,25] ];
-
     let hash_words: Vec<_> = pre_s
         .into_iter()
         .take(4)
         .map(|a| a[0].clone())
         .take(4)
         .collect();
-
     let hash_le_bytes = pre_s
         .into_iter()
         .take(4)
         .map(|a| a[0].clone())
         .rev()
         .collect::<Vec<_>>();
-
     println!("hash_words: {:?}, hash_le_bytes: {:?}", hash_words, hash_le_bytes);
 }
 
