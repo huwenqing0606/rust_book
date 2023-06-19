@@ -17,6 +17,19 @@ fn main() {
 
     let pack = pack_with_base(&vec![0,1,0,0,0], 8);
     println!("pack={:?}", pack);
+    chain()
+}
+
+/// use of chain
+fn chain() {
+    let array1 = [1, 2, 3];
+    let array2 = [4, 5, 6];
+
+    let chained = array1.iter().chain(array2.iter());
+
+    for num in chained {
+        println!("{}", num);
+    }
 }
 
 /// Pack bits in the range [0,BIT_SIZE[ into a sparse keccak word with the
